@@ -1,12 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
+import Form from './components/Form'
+import Gallery from './components/Gallery'
+import './index.css'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class App extends Component {
+    state = {
+        images: []
+    };
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+    handleSubmit = image => {
+        this.setState({images: [...this.state.images, image]})
+    }
+
+    render() {
+        const {images} = this.state
+        return (
+            <div>
+                <Form handleSubmit = {this.handleSubmit} />
+                <Gallery imagesData = {images} />
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(
+    <App />, 
+    document.getElementById('root')
+);
